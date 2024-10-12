@@ -1,3 +1,4 @@
+package edu.hit;
 /**
  * @description:
  *
@@ -37,15 +38,20 @@
  * grid[i][j] 的值为 '0' 或 '1'
  *
  */
-class Solution8 {
+public class Solution8 {
     void dfs(char[][] grid, int r, int c) {
         int nr = grid.length;
         int nc = grid[0].length;
 
-        if (r < 0 || c > 0 || r >= nr || c >= nc || grid[r][c] == '0') {
+        // 边界条件检查
+        if (r < 0 || c < 0 || r >= nr || c >= nc || grid[r][c] == '0') {
             return;
         }
-        grid[r][c] = '1';
+
+        // 标记为水，表示这个部分已经被访问过
+        grid[r][c] = '0'; // 修改这一行，从 '1' 改为 '0'
+
+        // 深度优先搜索上下左右
         dfs(grid, r - 1, c);
         dfs(grid, r + 1, c);
         dfs(grid, r, c - 1);
@@ -60,11 +66,14 @@ class Solution8 {
         int nr = grid.length;
         int nc = grid[0].length;
         int num_islands = 0;
+
+        // 遍历网格
         for (int r = 0; r < nr; ++r) {
-            for (int c = 0; r < nc; ++c) {
+            for (int c = 0; c < nc; ++c) {
+                // 找到一个新的岛屿
                 if (grid[r][c] == '1') {
                     ++num_islands;
-                    dfs(grid, r, c);
+                    dfs(grid, r, c); // 搜索并标记该岛屿
                 }
             }
         }
